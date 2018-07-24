@@ -1,6 +1,7 @@
 import argparse
 import json
 import os
+import sys
 import requests
 import time
 import datetime
@@ -137,6 +138,22 @@ def download_log(args):
     else:
         print "download log error"
 
+def configure():
+    """
+    Prompts the user to set configuration, similar to `aws configure`
+    """
+    base_url = raw_input("base-url [leave blank for default=https://log-manager.openfin.co/api/v1/]: ")
+    if base_url != "":
+        user_config.base_url = base_url
+
+    api_key = raw_input("api-key: ")
+    user_config.api_key = api_key
+
+    private_key_file = raw_input("private-key-file (e.g. C:\Users\me\.ssh\key.pem): ")
+    user_config.private_key = private_key_file
+
+    user_config.save()
+
 def print_version():
     print "0.1.0"
 
@@ -150,7 +167,7 @@ def set_dates(args):
 
     return start_date, end_date
 
-if __name__ == "__main__":
+def main():
     parser = argparse.ArgumentParser()
 
     parser.add_argument("--app-name", help="The name of the app")
@@ -166,10 +183,15 @@ if __name__ == "__main__":
     parser.add_argument("--api-key", help="log api key to use")
     parser.add_argument("--download-log", help="download log with given uuid")
     parser.add_argument("--version", action="store_true", help="Shows the version")
+    parser.add_argument("--configure", action="store_true", help="Configure the CLI")
 
     args = parser.parse_args()
 
     ## Configuration settings flags
+    if args.configure:
+        configure()
+        return
+        
     if args.base_url:
         set_base_url(args)
     if args.api_key:
@@ -195,3 +217,6 @@ if __name__ == "__main__":
     else:
         print "Invalid arguments"
         parser.print_help()
+
+if __name__ == "__main__":
+    sys.exit(main())

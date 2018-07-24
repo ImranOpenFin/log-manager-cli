@@ -18,6 +18,9 @@ The following are requirements for using the CLI tool:
 * openfin_log_cli.py: cli tool entry point.
 * config.ini: file that contains default configuration information, including log manager url, api key, and private key file.
 
+### Configuration
+Run `python openfin_log_cli.py --configure` and answer the prompts for base-url, api-key, and private-key to configure the cli. Configuration is stored in `~/.openfin/config.ini`
+
 ### Usage
 All commands return JSON responses from the log management service.
 All commands require at least the base url and the api key to be configured either in config.ini or the arguments `--base-url` or `--api-key`. For downloading logs, an RSA private key file in PEM form must also be configured in either config.ini or the argument `--private-key`.
