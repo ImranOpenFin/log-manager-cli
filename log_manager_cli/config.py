@@ -7,18 +7,18 @@ import errno
 
 class Config(object):
     def __init__(self):
-        self._parser = SafeConfigParser({'OPENFIN-API-KEY': '',
-                                   'BASE-URL': 'https://log-manager.openfin.co/api/v1/',
-                                   'PRIVATE-KEY-FILE': ''})
+        self._parser = SafeConfigParser({"OPENFIN-API-KEY": "",
+                                   "BASE-URL": "https://log-manager.openfin.co/api/v1/",
+                                   "PRIVATE-KEY-FILE": ""})
 
         home_dir = os.path.expanduser("~")
         self._config_file = os.path.join(home_dir, ".openfin", "config.ini")
         self._parser.read(self._config_file)
 
-        self._api_key = self._parser.get('DEFAULT', 'OPENFIN-API-KEY')
-        self._base_url = self._parser.get('DEFAULT', 'BASE-URL')
+        self._api_key = self._parser.get("DEFAULT", "OPENFIN-API-KEY")
+        self._base_url = self._parser.get("DEFAULT", "BASE-URL")
         self._headers = {"X-Openfin-Api-Key": self.api_key}
-        self._private_key = self._parser.get('DEFAULT', 'PRIVATE-KEY-FILE')
+        self._private_key = self._parser.get("DEFAULT", "PRIVATE-KEY-FILE")
 
     @property
     def api_key(self):
@@ -75,6 +75,6 @@ class Config(object):
                 if exc.errno != errno.EEXIST:
                     raise
 
-        with open(self._config_file, 'w') as cfg_file:
+        with open(self._config_file, "w") as cfg_file:
             self._parser.write(cfg_file)
 
