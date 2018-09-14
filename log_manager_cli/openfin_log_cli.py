@@ -48,7 +48,7 @@ def get_app_names():
     res = requests.get(urljoin(user_config.base_url, "applications"), headers=user_config.headers)
     try:
         print json.dumps(res.json(), indent=4, sort_keys=True)
-        
+
     except Exception as e:
         print "Error parsing json={0}".format(e)
 
@@ -110,7 +110,7 @@ def download_log(args):
     suffix_url = 'logs/' + log_id
     url = user_config.base_url + suffix_url
     print url
-    
+
     res = requests.get(url, headers=user_config.headers)
     if res.status_code != requests.codes.ok:
         print "Error: download_log", res
@@ -118,25 +118,29 @@ def download_log(args):
 
     encrypted_aes_key = res.headers['Encrypted-AES-Key']
     encrypted_aes_iv = res.headers['Encrypted-AES-IV']
+    if encrypted_aes_iv and encrypted_aes_key:
+        print "Log will be saved with decryption."
+        decrypted_aes_key = CryptoHelper.decrypt_rsa(encrypted_aes_key, user_config.private_key)
+        if decrypted_aes_key is None:
+            print "Error: decryption error"
+            return
 
-    decrypted_aes_key = CryptoHelper.decrypt_rsa(encrypted_aes_key, user_config.private_key)
-    if decrypted_aes_key is None:
-        print "Error: decryption error"
-        return
+        decrypted_aes_iv = CryptoHelper.decrypt_rsa(encrypted_aes_iv, user_config.private_key)
+        if decrypted_aes_iv is None:
+            print "Error: decryption error"
+            return
 
-    decrypted_aes_iv = CryptoHelper.decrypt_rsa(encrypted_aes_iv, user_config.private_key)
-    if decrypted_aes_iv is None:
-        print "Error: decryption error"
-        return
-
-    encrypted_log = res.content
-    zip_file_bits = CryptoHelper.decrypt_aes(encrypted_log, decrypted_aes_key, decrypted_aes_iv)
-    if zip_file_bits:
-        zip_file_name = log_id + '.zip'
-        with open(log_id + '.zip', 'wb') as f:
-            f.write(zip_file_bits)
+        encrypted_log = res.content
+        zip_file_bits = CryptoHelper.decrypt_aes(encrypted_log, decrypted_aes_key, decrypted_aes_iv)
+        if zip_file_bits:
+            with open(log_id + '.zip', 'wb') as f:
+                f.write(zip_file_bits)
+        else:
+            print "download log error"
     else:
-        print "download log error"
+        print "Log will not be saved with decryption."
+        with open(log_id + '.zip', 'wb') as f:
+            f.write(res.content)
 
 def configure():
     """
@@ -191,7 +195,7 @@ def main():
     if args.configure:
         configure()
         return
-        
+
     if args.base_url:
         set_base_url(args)
     if args.api_key:

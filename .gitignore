@@ -1,14 +1,17 @@
-# Packages
+.DS_Store
+.installed.cfg
 *.egg
 *.egg-info
-dist
-build
-eggs
-parts
-var
-sdist
-develop-eggs
-.installed.cfg
-
+*.log
 *.pyc
+*.zip
+build
 config.ini
+develop-eggs
+dist
+eggs
+pacakage
+parts
+sdist
+settings.json
+var
