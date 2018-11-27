@@ -7,9 +7,8 @@ The OpenFin Log Management CLI allows users to interact with the Log Management 
 ### Assumptions
 
 The following are requirements for using the CLI tool:
-
-- Python 2.7 must be installed.
-- Run `pip install -r requirements.txt` to install the necessary python packages.
+* Python 2.7 must be installed.
+* Run `pip install oflog` to install the CLI tool.
 
 ### Features
 
@@ -25,8 +24,7 @@ The following are requirements for using the CLI tool:
 - config.ini: file that contains default configuration information, including log manager url, api key, and private key file.
 
 ### Configuration
-
-Run `python log_manager_cli/openfin_log_cli.py --configure` and answer the prompts for base-url, api-key, and private-key to configure the cli. Configuration is stored in `~/.openfin/config.ini`
+Run `oflog --configure` and answer the prompts for base-url, api-key, and private-key to configure the cli. Configuration is stored in `~/.openfin/config.ini`
 
 ### Usage
 
@@ -35,12 +33,12 @@ All commands require at least the base url and the api key to be configured eith
 If the aforementioned configuration items are provided both in the config.ini file and as a command line argument, the command line argument will take precedence.
 
 ### Commands
+* `oflog --get-app-names`: list all the application names.
+* `oflog --get-app-desktops --app-name <name>`: list all the desktops for a given app name.
+* `oflog --get-desktop-logs --app-name <name> --desktop-id <id>`: list all the logs for a given app name / desktop combination.
+* `oflog --get-logs --app-name <name>`: get all the logs for a given app name.
+* `oflog --download-log <log-id>`: download a log with the given id and decrypt it with the provided private key file.
 
-- `python openfin_log_cli.py --get-app-names`: list all the application names.
-- `python openfin_log_cli.py --get-app-desktops --app-name <name>`: list all the desktops for a given app name.
-- `python openfin_log_cli.py --get-desktop-logs --app-name <name> --desktop-id <id>`: list all the logs for a given app name / desktop combination.
-- `python openfin_log_cli.py --get-logs --app-name <name>`: get all the logs for a given app name.
-- `python openfin_log_cli.py --download-log <log-id>`: download a log with the given id and decrypt it with the provided private key file.
 
 ### Other arguments
 
@@ -55,6 +53,9 @@ If the aforementioned configuration items are provided both in the config.ini fi
 ## Contributing
 
 This is an open source project and all are encouraged to contribute.
+
+### Development
+You can test any changes that you make locally by substituting `oflog` by running the `openfin_log_cli.py` file (e.g. calling the CLI like so: `python log_manager_cli\openfin_log_cli.py <args>`).
 
 ## License
 
