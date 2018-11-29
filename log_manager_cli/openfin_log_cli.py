@@ -9,6 +9,7 @@ import datetime
 import config
 from crypto_helper import CryptoHelper
 from urlparse import urljoin
+from version import __version__
 
 ## Global variables
 user_config = config.Config()
@@ -159,7 +160,7 @@ def configure():
     user_config.save()
 
 def print_version():
-    print "0.1.0"
+    print __version__
 
 def set_dates(args):
     start_date = default_start_date
