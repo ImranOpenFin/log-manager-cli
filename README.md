@@ -7,14 +7,17 @@ The OpenFin Log Management CLI allows users to interact with the Log Management 
 ### Assumptions
 
 The following are requirements for using the CLI tool:
-* Python 2.7 must be installed.
-* Run `pip install oflog` to install the CLI tool.
+- Python 2.7 must be installed.
+- Run `pip install oflog` to install the CLI tool.
 
 ### Features
 
 - List application names, and list desktop id's for a given app name.
 - List logs for a given application.
 - Download and decrypt zipped files from the log management service.
+
+### Upgrading
+- To upgrade to a newer version, run `pip install --upgrade oflog`
 
 ## Getting started
 
