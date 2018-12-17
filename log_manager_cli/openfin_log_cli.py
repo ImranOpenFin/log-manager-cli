@@ -87,7 +87,7 @@ def get_logs(args):
     start_date, end_date = set_dates(args)
     query_params = {"startDate": start_date, "endDate": end_date}
     if args.username:
-        query_params['username'] = args.username
+        query_params['userName'] = args.username
 
     suffix_url = 'Applications/' + args.app_name
     url = urljoin(user_config.base_url, suffix_url)
