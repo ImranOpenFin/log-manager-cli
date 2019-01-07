@@ -86,6 +86,9 @@ def get_logs(args):
 
     start_date, end_date = set_dates(args)
     query_params = {"startDate": start_date, "endDate": end_date}
+    if args.username:
+        query_params['userName'] = args.username
+
     suffix_url = 'Applications/' + args.app_name
     url = urljoin(user_config.base_url, suffix_url)
 
@@ -189,6 +192,7 @@ def main():
     parser.add_argument("--download-log", help="download log with given uuid")
     parser.add_argument("--version", action="store_true", help="Shows the version")
     parser.add_argument("--configure", action="store_true", help="Configure the CLI")
+    parser.add_argument("--username", help="Sets a username used for seeing app logs")
 
     args = parser.parse_args()
 
