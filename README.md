@@ -61,8 +61,15 @@ This is an open source project and all are encouraged to contribute.
 You can test any changes that you make locally by substituting `oflog` by running the `openfin_log_cli.py` file (e.g. calling the CLI like so: `python log_manager_cli\openfin_log_cli.py <args>`).
 
 ## License
-The code in this repository is covered by the included license.  If you run this code, it may call on the OpenFin RVM or OpenFin Runtime, which are subject to OpenFin’s [Developer License](https://openfin.co/developer-agreement/). If you have questions, please contact support@openfin.co  
 This project uses the [Apache2 license](https://www.apache.org/licenses/LICENSE-2.0).
+
+The code in this repository is covered by the included license.
+
+However, if you run this code, it may call on the OpenFin RVM or OpenFin Runtime, which are covered by OpenFin’s Developer, Community, and Enterprise licenses. You can learn more about OpenFin licensing at the links listed below or just email us at support@openfin.co with questions.
+
+https://openfin.co/developer-agreement/ <br/>
+https://openfin.co/licensing/
+
 
 ## Support
 
