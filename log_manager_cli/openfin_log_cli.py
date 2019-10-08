@@ -91,7 +91,6 @@ def get_logs(args):
 
     suffix_url = 'Applications/' + args.app_name
     url = urljoin(user_config.base_url, suffix_url)
-
     res = requests.get(url, headers=user_config.headers, params=query_params)
     if res.status_code != requests.codes.ok:
         print "ERROR: --get-logs", res
@@ -145,6 +144,7 @@ def download_log(args):
         print "Log will not be saved with decryption."
         with open(log_id + '.zip', 'wb') as f:
             f.write(res.content)
+    print "Log is located here:", os.path.join(os.getcwd(), log_id + '.zip')
 
 def configure():
     """
