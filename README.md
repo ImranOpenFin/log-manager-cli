@@ -6,9 +6,23 @@ The OpenFin Log Management CLI allows users to interact with the Log Management 
 
 ### Assumptions
 
+The following are requirements for the Application Manifest:
+- Valid License key (`"licenseKey": ""`)
+- Log Management should be enabled together with a valid public rsa key, this could look something like below: 
+```
+"logManagement": {
+       "enabled": true,
+       "encryptionKey": "<Public RSA key>"
+   }
+```
+- You can create a RSA key pair [here](https://travistidwell.com/jsencrypt/demo/).
+- When generating the RSA key pair, please do not include `-----BEGIN PUBLIC KEY-----` or `-----END PUBLIC KEY-----` when defining the `"encryptionKey"` string.
+- Store the private key in a file named `key.pem` - This key will then be used to decrypt the log file.
+
 The following are requirements for using the CLI tool:
-- Python 2.7 must be installed.
+- [Python 2.7](https://www.python.org/downloads/release/python-2717/) must be installed (This version contains pip.)
 - Run `pip install oflog` to install the CLI tool.
+- If you plan on using the Log Management CLI on Windows, make sure you install the C++ compiler package for python 2.7 found [here](https://www.microsoft.com/en-gb/download/details.aspx?id=44266), if on mac you should receive a prompt to install the correct package.
 
 ### Features
 
@@ -33,7 +47,10 @@ Run `oflog --configure` and answer the prompts for base-url, api-key, and privat
 
 All commands return JSON responses from the log management service.
 All commands require at least the base url and the api key to be configured either in config.ini or the arguments `--base-url` or `--api-key`. For downloading logs, an RSA private key file in PEM form must also be configured in either config.ini or the argument `--private-key`.
+In order to obtain an `--api-key`, please contact support@openfin.co, the API needs to be linked to your applications license key please provide this when requesting the api key.
 If the aforementioned configuration items are provided both in the config.ini file and as a command line argument, the command line argument will take precedence.
+If you are running the Log Manager cli on windows, please use Powershell.
+
 
 ### Commands
 * `oflog --get-app-names`: list all the application names.
